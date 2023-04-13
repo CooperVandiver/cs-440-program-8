@@ -51,7 +51,17 @@ main(void)
         close(s);
         errx(1, "Failed to receive from server.");
     }
-    extractPayload(msg, sizeof(msg)-1, buf, len);
+    if (extractType(buf, len) != BFTP_RDY) {
+        len = createPacket(msg,
+                           sizeof(msg),
+                           BFTP_ERR,
+                           "Supposed to send a RDY packet!",
+                           31
+                          );
+        send(s, msg, len, 0);
+        close(s);
+        errx(1, "Server commited protocol violation!");
+    }
 
     return 0;
 }
