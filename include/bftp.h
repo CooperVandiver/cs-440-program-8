@@ -18,6 +18,6 @@ int
 extractType(char*, size_t);
 
 int
-extractPayload(char*, size_t, char*, size_t);
+extractPayload(char*, int, char*, int);
 
 #endif

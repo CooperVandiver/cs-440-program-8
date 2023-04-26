@@ -108,19 +108,23 @@ extractType(char* buffer, size_t bufferSize)
 */
 int
 extractPayload(char* payload,
-               size_t payloadSize,
+               int payloadSize,
                char *buffer,
-               size_t bufferSize
+               int bufferSize
               )
 {
     if (payload == NULL)
         errx(1, "In \"extractPayload,\" \"payload\" cannot be null!");
     if (buffer == NULL)
         errx(1, "In \"extractPayload,\" \"buffer\" cannot be null!");
-    if (bufferSize < 3 || payloadSize <= bufferSize - 3)
+    if (payloadSize < bufferSize - 3) {
+		printf("Payload size: %d\nBuffer Size: %d\n", payloadSize, bufferSize);
         errx(1, "In \"extractPayload,\" \"payload\" is not large enough!");
+	}
     
     memset(payload, 0, payloadSize);
+	if (bufferSize <= 3)
+		return 0;
     memcpy(payload, buffer+3, bufferSize-3); 
     return bufferSize-3;
 }

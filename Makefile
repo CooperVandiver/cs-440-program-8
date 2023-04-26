@@ -6,12 +6,18 @@ INC = include
 CLIENTDIR = client
 SERVERDIR = server
 
-.PHONY: clean $(CLIENTDIR)/bftp_client
+.PHONY: clean all
 
-all: $(CLIENTDIR)/bftp_client
+all: $(CLIENTDIR)/bftp_client $(SERVERDIR)/bftp_server
+
+$(SERVERDIR)/bftp_server: $(OBJ)/server.o $(OBJ)/bftp.o
+	$(CC) $(CFLAGS) -o $(SERVERDIR)/bftp_server $(OBJ)/server.o $(OBJ)/bftp.o
 
 $(CLIENTDIR)/bftp_client: $(OBJ)/client.o $(OBJ)/bftp.o
 	$(CC) $(CFLAGS) -o $(CLIENTDIR)/bftp_client $(OBJ)/client.o $(OBJ)/bftp.o
+
+$(OBJ)/server.o: $(SRC)/server.c
+	$(CC) $(CFLAGS) -c -o $(OBJ)/server.o $(SRC)/server.c -I$(INC)
 
 $(OBJ)/client.o: $(SRC)/client.c
 	$(CC) $(CFLAGS) -c -o $(OBJ)/client.o $(SRC)/client.c -I$(INC)

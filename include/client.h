@@ -2,7 +2,7 @@
 #define CLIENT_H
 
 enum CLIENT_CONSTANTS {
-    SERVER_PORT = 11044
+    SERVER_PORT = 11386
 };
 
 enum CLIENT_COMMANDS {
