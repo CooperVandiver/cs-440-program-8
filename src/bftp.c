@@ -74,12 +74,10 @@ extractType(char* buffer, size_t bufferSize)
     char typeStr[4];
 
     if (buffer == NULL)
-        errx(1, "In \"extractType,\" \"buffer\" cannot be null!");
+        return BFTP_INVALID;
 
     if (bufferSize <= 3) {
-        errx(1, "In \"extractType,\" \"buffer\" must be at least 3 bytes "
-                "long!"
-            );
+        return BFTP_INVALID;
     }
 
     /* 
